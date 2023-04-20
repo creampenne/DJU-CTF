@@ -6,15 +6,15 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Team</h1>
+			<h1>팀</h1>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 offset-md-3 text-center">
-				<p>Welcome to {{ Configs.ctf_name }}!</p>
+				<p>Hello, {{ Configs.ctf_name }}!</p>
 				<p>
-					In order to participate you must either join or create a team.
+					CTF에 참가하기 위해 팀에 가입하거나 팀을 생성해야 합니다.
 				</p>
 			</div>
 		</div>
@@ -35,10 +35,10 @@
 		{% else %}
 		<div class="row pt-3">
 			<div class="col-md-3 offset-md-3 text-center">
-				<a class="btn btn-primary w-100" href="{{ url_for('teams.join') }}">Join Team</a>
+				<a class="btn btn-primary w-100" href="{{ url_for('teams.join') }}">팀 가입</a>
 			</div>
 			<div class="col-md-3 text-center">
-				<a class="btn btn-primary w-100" href="{{ url_for('teams.new') }}">Create Team</a>
+				<a class="btn btn-primary w-100" href="{{ url_for('teams.new') }}">팀 생성</a>
 			</div>
 		</div>
 		{% endif %}
