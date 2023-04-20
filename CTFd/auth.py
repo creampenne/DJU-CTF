@@ -100,7 +100,7 @@ def reset_password(data=None):
             "reset_password.html",
             errors=[
                 markup(
-                    "This CTF is not configured to send email.<br> Please contact an organizer to have your password reset."
+                    "Email 서버가 설정되지 않았습니다.<br> 관리자에게 비밀번호 재설정을 요청하세요."
                 )
             ],
         )
