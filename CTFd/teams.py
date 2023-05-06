@@ -180,7 +180,7 @@ def join():
 
             return redirect(url_for("challenges.listing"))
         else:
-            errors.append("That information is incorrect")
+            errors.append("팀 이름 또는 비밀번호를 다시 확인해주세요.")
             return render_template("teams/join_team.html", infos=infos, errors=errors)
 
 

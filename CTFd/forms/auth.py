@@ -15,11 +15,11 @@ from CTFd.forms.users import (
 def RegistrationForm(*args, **kwargs):
     class _RegistrationForm(BaseForm):
         name = StringField(
-            "User Name", validators=[InputRequired()], render_kw={"autofocus": True}
+            "아이디", validators=[InputRequired()], render_kw={"autofocus": True}
         )
         email = EmailField("Email", validators=[InputRequired()])
-        password = PasswordField("Password", validators=[InputRequired()])
-        submit = SubmitField("Submit")
+        password = PasswordField("비밀번호", validators=[InputRequired()])
+        submit = SubmitField("가입")
 
         @property
         def extra(self):
@@ -35,12 +35,12 @@ def RegistrationForm(*args, **kwargs):
 
 class LoginForm(BaseForm):
     name = StringField(
-        "User Name or Email",
+        "아이디(Email)",
         validators=[InputRequired()],
         render_kw={"autofocus": True},
     )
-    password = PasswordField("Password", validators=[InputRequired()])
-    submit = SubmitField("Submit")
+    password = PasswordField("비밀번호", validators=[InputRequired()])
+    submit = SubmitField("로그인")
 
 
 class ConfirmForm(BaseForm):
@@ -51,7 +51,7 @@ class ResetPasswordRequestForm(BaseForm):
     email = EmailField(
         "Email", validators=[InputRequired()], render_kw={"autofocus": True}
     )
-    submit = SubmitField("Submit")
+    submit = SubmitField("확인")
 
 
 class ResetPasswordForm(BaseForm):
