@@ -6,7 +6,7 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Users</h1>
+			<h1>참가자</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -27,7 +27,7 @@
 						{{ form.field(class="form-control custom-select w-100") }}
 					</div>
 					<div class="form-group col-md-8">
-						{{ form.q(class="form-control w-100", placeholder="Search for matching users") }}
+						{{ form.q(class="form-control w-100", placeholder="검색") }}
 					</div>
 					<div class="form-group col-md-2">
 						<button type="submit" class="btn btn-primary w-100">
@@ -46,10 +46,10 @@
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<td><b>User</b></td>
+						<td><b>참가자</b></td>
 						<td><b>Website</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Affiliation</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>Country</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>학과</b></td>
+						<td class="d-none d-md-table-cell d-lg-table-cell"><b>국가</b></td>
 					</tr>
 					</thead>
 					<tbody>

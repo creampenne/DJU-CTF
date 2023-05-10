@@ -47,7 +47,7 @@
 				<thead>
 					<tr>
 						<td><b>팀명</b></td>
-						<td><b>웹사이트</b></td>
+						<td><b>Website</b></td>
 						<td class="d-none d-md-table-cell d-lg-table-cell"><b>학과</b></td>
 						<td class="d-none d-md-table-cell d-lg-table-cell"><b>국가</b></td>
 					</tr>
@@ -77,13 +77,13 @@
 						<td class="d-none d-md-table-cell d-lg-table-cell">
 							{% if team.affiliation %}
 								{% if team.affiliation | length > 50 %}
-								<span data-toggle="tooltip" data-placement="top" title="{{ team.affiliation }}">
-									{% if team.affiliation %}{{ team.affiliation | truncate(50) }}{% endif %}
-								</span>
+									<span data-toggle="tooltip" data-placement="top" title="{{ team.affiliation }}">
+								{% if team.affiliation %}{{ team.affiliation | truncate(50) }}{% endif %}
+							</span>
 								{% else %}
-								<span>
-									{% if team.affiliation %}{{ team.affiliation | truncate(50) }}{% endif %}
-								</span>
+									<span>
+								{% if team.affiliation %}{{ team.affiliation | truncate(50) }}{% endif %}
+							</span>
 								{% endif %}
 							{% endif %}
 						</td>
