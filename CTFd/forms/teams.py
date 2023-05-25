@@ -72,14 +72,14 @@ def attach_custom_team_fields(form_cls, **kwargs):
 
 
 class TeamJoinForm(BaseForm):
-    name = StringField("팀 이름", validators=[InputRequired()])
+    name = StringField("팀명", validators=[InputRequired()])
     password = PasswordField("팀 비밀번호", validators=[InputRequired()])
     submit = SubmitField("가입")
 
 
 def TeamRegisterForm(*args, **kwargs):
     class _TeamRegisterForm(BaseForm):
-        name = StringField("팀 이름", validators=[InputRequired()])
+        name = StringField("팀명", validators=[InputRequired()])
         password = PasswordField("팀 비밀번호", validators=[InputRequired()])
         submit = SubmitField("생성")
 
@@ -96,30 +96,30 @@ def TeamRegisterForm(*args, **kwargs):
 def TeamSettingsForm(*args, **kwargs):
     class _TeamSettingsForm(BaseForm):
         name = StringField(
-            "Team Name",
-            description="Your team's public name shown to other competitors",
+            "팀명",
+            description="다른 참가자에게 공개할 팀명을 입력하세요.",
         )
         password = PasswordField(
-            "New Team Password", description="Set a new team join password"
+            "새로운 팀 비밀번호", description="새로운 팀 비밀번호를 입력하세요."
         )
         confirm = PasswordField(
-            "Confirm Password",
-            description="Provide your current team password (or your password) to update your team's password",
+            "비밀번호 확인",
+            description="새로운 팀 비밀번호를 다시 한번 입력하세요.",
         )
         affiliation = StringField(
-            "Affiliation",
-            description="Your team's affiliation publicly shown to other competitors",
+            "학과",
+            description="다른 참가자에게 공개할 학과명을 입력하세요.",
         )
         website = URLField(
-            "Website",
-            description="Your team's website publicly shown to other competitors",
+            "웹사이트",
+            description="다른 참가자에게 공개할 팀 웹사이트를 작성하세요.(없을시 빈칸)",
         )
         country = SelectField(
-            "Country",
+            "국가",
             choices=SELECT_COUNTRIES_LIST,
-            description="Your team's country publicly shown to other competitors",
+            description="다른 참가자에게 공개할 국가를 선택하세요.",
         )
-        submit = SubmitField("Submit")
+        submit = SubmitField("확인")
 
         @property
         def extra(self):
@@ -156,8 +156,8 @@ def TeamSettingsForm(*args, **kwargs):
 
 class TeamCaptainForm(BaseForm):
     # Choices are populated dynamically at form creation time
-    captain_id = SelectField("Team Captain", choices=[], validators=[InputRequired()])
-    submit = SubmitField("Submit")
+    captain_id = SelectField("팀장", choices=[], validators=[InputRequired()])
+    submit = SubmitField("확인")
 
 
 class TeamSearchForm(BaseForm):
@@ -244,8 +244,8 @@ def TeamEditForm(*args, **kwargs):
 
 
 class TeamInviteForm(BaseForm):
-    link = URLField("Invite Link")
+    link = URLField("초대 링크")
 
 
 class TeamInviteJoinForm(BaseForm):
-    submit = SubmitField("Join")
+    submit = SubmitField("가입")

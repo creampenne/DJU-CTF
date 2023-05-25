@@ -132,7 +132,7 @@ class PublicUserSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "참가자명"),
+            ("name", "아이디"),
             ("affiliation", "학과명"),
             ("website", "웹사이트"),
         ],

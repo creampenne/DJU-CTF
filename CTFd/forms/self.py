@@ -18,7 +18,7 @@ def SettingsForm(*args, **kwargs):
         affiliation = StringField("학과")
         website = URLField("웹사이트")
         country = SelectField("국가", choices=SELECT_COUNTRIES_LIST)
-        submit = SubmitField("수정")
+        submit = SubmitField("확인")
 
         @property
         def extra(self):
