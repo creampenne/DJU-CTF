@@ -6,7 +6,7 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>Join Team</h1>
+			<h1>팀 생성</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -14,18 +14,23 @@
 			<div class="col-md-6 offset-md-3">
 				{% include "components/errors.html" %}
 
-				{% with form = Forms.teams.TeamJoinForm() %}
+				{% with form = Forms.teams.TeamRegisterForm() %}
+				{% from "macros/forms.html" import render_extra_fields %}
 				<form method="POST">
 					<div class="form-group">
-						{{ form.name.label }}
+						<b>{{ form.name.label }}</b>
 						{{ form.name(class="form-control") }}
 					</div>
 					<div class="form-group">
-						{{ form.password.label }}
+						<b>{{ form.password.label }}</b>
 						{{ form.password(class="form-control") }}
 					</div>
+
+					{{ render_extra_fields(form.extra) }}
+
 					<div class="row pt-3">
 						<div class="col-md-12">
+							<p>팀 생성 후, 팀 이름과 비밀번호를 팀원에게 공유해주세요.</p>
 							{{ form.submit(class="btn btn-success float-right") }}
 						</div>
 					</div>

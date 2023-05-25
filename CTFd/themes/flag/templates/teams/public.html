@@ -6,63 +6,53 @@
 {% block content %}
 	<div class="jumbotron">
 		<div class="container">
-			<h1>{{ user.name }}</h1>
-
-			{% if user.team_id %}
-				<h2>
-					<a href="{{ url_for('teams.private') }}">
-						<span class="badge badge-secondary">
-							{{ user.team.name }}
-						</span>
-					</a>
-				</h2>
-			{% endif %}
-
-			{% if user.oauth_id %}
-				<a href="https://majorleaguecyber.org/u/{{ user.name }}">
+			<h1 id="team-id" team-id="{{ team.id }}">{{ team.name }}</h1>
+			{% if team.oauth_id %}
+				<a href="https://majorleaguecyber.org/t/{{ team.name }}">
 					<h3><span class="badge badge-primary">Official</span></h3>
 				</a>
 			{% endif %}
-
-			{% if user.affiliation %}
+			{% if team.affiliation %}
 				<h3 class="d-inline-block">
-					<span class="badge badge-primary">{{ user.affiliation }}</span>
+					<span class="badge badge-primary">{{ team.affiliation }}</span>
 				</h3>
 			{% endif %}
-
-			{% if user.country %}
+			{% if team.country %}
 				<h3 class="d-inline-block">
 					<span class="badge badge-primary">
-						<i class="flag-{{ user.country.lower() }}"></i>
-						{{ lookup_country_code(user.country) }}
+						<i class="flag-{{ team.country.lower() }}"></i>
+						{{ lookup_country_code(team.country) }}
 					</span>
 				</h3>
 			{% endif %}
-
-			{% for field in user.fields %}
-				<h3 class="d-inline-block">
+			{% for field in team.fields %}
+				<h3 class="d-block">
 					{{ field.name }}: {{ field.value }}
 				</h3>
 			{% endfor %}
-
-			<div>
-				<h2 class="text-center">
-					{% if account.place %}
-						{{ account.place }} <small>place</small>
+			<h2 id="team-place" class="text-center">
+				{# This intentionally hides the team's place when scores are hidden because this can be their internal profile
+			and we don't want to leak their place in the CTF. #}
+				{# Public page hiding is done at the route level #}
+				{% if scores_visible() %}
+					{% if place %}
+						{{ place }}
+						<small>랭킹</small>
 					{% endif %}
-				</h2>
-				<h2 class="text-center">
-					{% if account.place %}
-						{{ account.score }} <small>points</small>
-					{% endif %}
-				</h2>
-			</div>
+				{% endif %}
+			</h2>
+			<h2 id="team-score" class="text-center">
+				{% if score %}
+					{{ score }}
+					<small>포인트</small>
+				{% endif %}
+			</h2>
 
 			<div class="pt-3">
-				{% if user.website %}
-					<a href="{{ user.website }}" target="_blank" style="color: inherit;" rel="noopener">
+				{% if team.website and (team.website.startswith('http://') or team.website.startswith('https://')) %}
+					<a href="{{ team.website }}" target="_blank" style="color: inherit;" rel="noopener">
 						<i class="fas fa-external-link-alt fa-2x px-2" data-toggle="tooltip" data-placement="top"
-						   title="{{ user.website }}"></i>
+						   title="{{ team.website }}"></i>
 					</a>
 				{% endif %}
 			</div>
@@ -71,8 +61,34 @@
 	<div class="container">
 		{% include "components/errors.html" %}
 
-		{% set solves = user.solves %}
-		{% set awards = user.awards %}
+		<br>
+
+		<div class="row">
+			<div class="col-md-12">
+				<h3>멤버</h3>
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<td><b>참가자</b></td>
+						<td><b>점수</b></td>
+					</tr>
+					</thead>
+					<tbody>
+					{% for member in team.members %}
+						<tr>
+							<td>
+								<a href="{{ url_for('users.public', user_id=member.id) }}">
+									{{ member.name }}
+								</a>
+							</td>
+							<td>{{ member.score }}</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+
 		{% if solves or awards %}
 			<div class="row">
 				<div class="col-md-6 d-none d-md-block d-lg-block">
@@ -101,36 +117,38 @@
 
 			<div class="clearfix"></div>
 
-			<div class="row">
-				<div class="col-md-12">
-					<h3>Awards</h3>
-				</div>
-				{% for award in awards %}
-					<div class="col-md-3 col-sm-6">
-						<p class="text-center">
-							<i class="award-icon award-{{ award.icon }} fa-2x"></i>
-							<br>
-							<strong>{{ award.name }}</strong>
-						</p>
-						<p class="text-center">{{ award.category or ""}}</p>
-						<p class="text-center">{{ award.description or ""}}</p>
-						<p class="text-center">{{ award.value }}</p>
+			{% if awards %}
+				<div class="row">
+					<div class="col-md-12">
+						<h3>성과</h3>
 					</div>
-				{% endfor %}
-			</div>
+					{% for award in awards %}
+						<div class="col-md-3 col-sm-6">
+							<p class="text-center">
+								<i class="award-icon award-{{ award.icon }} fa-2x"></i>
+								<br>
+								<strong>{{ award.name }}</strong>
+							</p>
+							{% if award.category %}<p class="text-center">{{ award.category }}</p>{% endif %}
+							{% if award.description %}<p class="text-center">{{ award.description }}</p>{% endif %}
+							<p class="text-center">{{ award.value }}</p>
+						</div>
+					{% endfor %}
+				</div>
 
-			<br>
+				<br>
+			{% endif %}
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Solves</h3>
+					<h3>문제 풀이</h3>
 					<table class="table table-striped">
 						<thead>
 						<tr>
-							<td><b>Challenge</b></td>
-							<td class="d-none d-md-block d-lg-block"><b>Category</b></td>
-							<td><b>Value</b></td>
-							<td><b>Time</b></td>
+							<td><b>문제</b></td>
+							<td class="d-none d-md-block d-lg-block"><b>분야</b></td>
+							<td><b>포인트</b></td>
+							<td><b>시간</b></td>
 						</tr>
 						</thead>
 						<tbody>
@@ -155,7 +173,7 @@
 		{% else %}
 			<div class="row min-vh-25">
 				<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-					No solves yet
+					아직 푼 문제가 없습니다.
 				</h3>
 			</div>
 		{% endif %}
@@ -165,10 +183,10 @@
 {% block scripts %}
 	<script>
 		var stats_data = {{ {
-			'type': 'user',
-			'id': user.id,
-			'name': user.name,
-			'account_id': 'me',
+			'type': 'team',
+			'id': team.id,
+			'name': team.name,
+			'account_id': team.id,
 		} | tojson }};
 	</script>
 	<script defer src="{{ url_for('views.themes', path='js/echarts.bundle.js') }}"></script>
@@ -176,5 +194,7 @@
 {% endblock %}
 
 {% block entrypoint %}
-	<script defer src="{{ url_for('views.themes', path='js/pages/stats.js') }}"></script>
+	{% if solves or awards %}
+		<script defer src="{{ url_for('views.themes', path='js/pages/stats.js') }}"></script>
+	{% endif %}
 {% endblock %}

@@ -12,7 +12,7 @@ from CTFd.utils.user import get_current_user
 def SettingsForm(*args, **kwargs):
     class _SettingsForm(BaseForm):
         name = StringField("아이디")
-        email = StringField("이메일")
+        email = StringField("Email")
         password = PasswordField("변경할 비밀번호")
         confirm = PasswordField("현재 비밀번호")
         affiliation = StringField("학과")

@@ -6,13 +6,13 @@
 			</button>
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" href="#challenge">Challenge</a>
+					<a class="nav-link active" href="#challenge">문제</a>
 				</li>
 				{% block solves %}
 					<li class="nav-item">
 						<a class="nav-link challenge-solves" href="#solves">
 							{% if solves != None %}
-								{{ solves }} {% if solves > 1 %}Solves{% else %}Solves{% endif %}
+								{{ solves }} {% if solves > 1 %}제출{% else %}제출{% endif %}
 							{% endif %}
 						</a>
 					</li>
@@ -44,16 +44,16 @@
 									<a class="btn btn-info btn-hint btn-block load-hint" href="javascript:;" data-hint-id="{{ hint.id }}">
 										{% if hint.content %}
 											<small>
-												View Hint
+												힌트 보기
 											</small>
 										{% else %}
 											{% if hint.cost %}
 												<small>
-													Unlock Hint for {{ hint.cost }} points
+													{{ hint.cost }} 포인트를 사용하여 힌트 확인
 												</small>
 											{% else %}
 												<small>
-													View Hint
+													힌트 보기
 												</small>
 											{% endif %}
 										{% endif %}
@@ -103,7 +103,7 @@
 							<div class="col-md-3 form-group key-submit">
 								{% block submit %}
 								<button id="challenge-submit" class="challenge-submit" type="submit">
-									Submit
+									제출
 								</button>
 								{% endblock %}
 							</div>
@@ -125,9 +125,9 @@
 								<table class="table table-striped text-center">
 									<thead>
 									<tr>
-										<td><b>Name</b>
+										<td><b>이름</b>
 										</td>
-										<td><b>Date</b>
+										<td><b>시간</b>
 										</td>
 									</tr>
 									</thead>

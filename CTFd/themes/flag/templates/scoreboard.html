@@ -3,7 +3,7 @@
 {% block content %}
 <div class="jumbotron">
 	<div class="container">
-		<h1>Scoreboard</h1>
+		<h1>랭킹</h1>
 	</div>
 </div>
 <div class="container">
@@ -22,15 +22,15 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<td scope="col" width="10px"><b>Place</b></td>
-						<td scope="col"><b>{{ get_mode_as_word(capitalize=True) }}</b></td>
-						<td scope="col"><b>Score</b></td>
+						<td scope="col"><b>랭킹</b></td>
+						<td scope="col"><b>참가팀</b></td>
+						<td scope="col"><b>점수</b></td>
 					</tr>
 				</thead>
 				<tbody>
 				{% for standing in standings %}
 					<tr>
-						<th scope="row" class="text-center">{{ loop.index }}</th>
+						<th scope="row">{{ loop.index }}</th>
 						<td>
 							<a href="{{ generate_account_url(standing.account_id) }}">
 								{{ standing.name | truncate(50) }}

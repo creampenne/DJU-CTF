@@ -10,7 +10,7 @@
 
 			{% if user.team_id %}
 				<h2>
-					<a href="{{ url_for('teams.public', team_id=user.team_id) }}">
+					<a href="{{ url_for('teams.private') }}">
 						<span class="badge badge-secondary">
 							{{ user.team.name }}
 						</span>
@@ -40,7 +40,7 @@
 			{% endif %}
 
 			{% for field in user.fields %}
-				<h3 class="d-block">
+				<h3 class="d-inline-block">
 					{{ field.name }}: {{ field.value }}
 				</h3>
 			{% endfor %}
@@ -48,12 +48,12 @@
 			<div>
 				<h2 class="text-center">
 					{% if account.place %}
-						{{ account.place }} <small>place</small>
+						{{ account.place }} <small>랭킹</small>
 					{% endif %}
 				</h2>
 				<h2 class="text-center">
 					{% if account.place %}
-						{{ account.score }} <small>points</small>
+						{{ account.score }} <small>포인트</small>
 					{% endif %}
 				</h2>
 			</div>
@@ -103,7 +103,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Awards</h3>
+					<h3>성과</h3>
 				</div>
 				{% for award in awards %}
 					<div class="col-md-3 col-sm-6">
@@ -112,8 +112,8 @@
 							<br>
 							<strong>{{ award.name }}</strong>
 						</p>
-						<p class="text-center">{{ award.category or "" }}</p>
-						<p class="text-center">{{ award.description or "" }}</p>
+						<p class="text-center">{{ award.category or ""}}</p>
+						<p class="text-center">{{ award.description or ""}}</p>
 						<p class="text-center">{{ award.value }}</p>
 					</div>
 				{% endfor %}
@@ -123,14 +123,14 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<h3>Solves</h3>
+					<h3>문제풀이</h3>
 					<table class="table table-striped">
 						<thead>
 						<tr>
-							<td><b>Challenge</b></td>
-							<td class="d-none d-md-block d-lg-block"><b>Category</b></td>
-							<td><b>Value</b></td>
-							<td><b>Time</b></td>
+							<td><b>문제</b></td>
+							<td class="d-none d-md-block d-lg-block"><b>분야</b></td>
+							<td><b>포인트</b></td>
+							<td><b>시간</b></td>
 						</tr>
 						</thead>
 						<tbody>
@@ -155,7 +155,7 @@
 		{% else %}
 			<div class="row min-vh-25">
 				<h3 class="opacity-50 text-center w-100 justify-content-center align-self-center">
-					No solves yet
+					아직 푼 문제가 없습니다.
 				</h3>
 			</div>
 		{% endif %}
@@ -168,7 +168,7 @@
 			'type': 'user',
 			'id': user.id,
 			'name': user.name,
-			'account_id': user.id,
+			'account_id': 'me',
 		} | tojson }};
 	</script>
 	<script defer src="{{ url_for('views.themes', path='js/echarts.bundle.js') }}"></script>
