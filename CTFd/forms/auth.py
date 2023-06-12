@@ -56,6 +56,6 @@ class ResetPasswordRequestForm(BaseForm):
 
 class ResetPasswordForm(BaseForm):
     password = PasswordField(
-        "Password", validators=[InputRequired()], render_kw={"autofocus": True}
+        "비밀번호", validators=[InputRequired()], render_kw={"autofocus": True}
     )
-    submit = SubmitField("Submit")
+    submit = SubmitField("확인")

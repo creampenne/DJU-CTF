@@ -132,9 +132,9 @@ class PublicUserSearchForm(BaseForm):
     field = SelectField(
         "Search Field",
         choices=[
-            ("name", "Name"),
-            ("affiliation", "Affiliation"),
-            ("website", "Website"),
+            ("name", "아이디"),
+            ("affiliation", "학과명"),
+            ("website", "웹사이트"),
         ],
         default="name",
         validators=[InputRequired()],

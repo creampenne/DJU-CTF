@@ -401,13 +401,13 @@ def login():
                     "[{date}] {ip} - submitted invalid password for {name}",
                     name=user.name,
                 )
-                errors.append("Your username or password is incorrect")
+                errors.append("비밀번호를 확인하세요.")
                 db.session.close()
                 return render_template("login.html", errors=errors)
         else:
             # This user just doesn't exist
             log("logins", "[{date}] {ip} - submitted invalid account information")
-            errors.append("Your username or password is incorrect")
+            errors.append("아이디(Email)를 확인하세요.")
             db.session.close()
             return render_template("login.html", errors=errors)
     else:
@@ -535,9 +535,8 @@ def oauth_redirect():
 
                 team_size_limit = get_config("team_size", default=0)
                 if team_size_limit and len(team.members) >= team_size_limit:
-                    plural = "" if team_size_limit == 1 else "s"
-                    size_error = "Teams are limited to {limit} member{plural}.".format(
-                        limit=team_size_limit, plural=plural
+                    size_error = "팀원은 최대 {limit}명까지 가능합니다.".format(
+                        limit=team_size_limit
                     )
                     error_for(endpoint="auth.login", message=size_error)
                     return redirect(url_for("auth.login"))

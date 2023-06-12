@@ -79,8 +79,8 @@ def invite():
     if request.method == "GET":
         if team_size_limit:
             infos.append(
-                "Teams are limited to {limit} member{plural}".format(
-                    limit=team_size_limit, plural=pluralize(number=team_size_limit)
+                "팀장을 포함해 최대 {limit}명까지 가능합니다.".format(
+                    limit=team_size_limit
                 )
             )
 
@@ -135,10 +135,9 @@ def join():
     if request.method == "GET":
         team_size_limit = get_config("team_size", default=0)
         if team_size_limit:
-            plural = "" if team_size_limit == 1 else "s"
             infos.append(
-                "Teams are limited to {limit} member{plural}".format(
-                    limit=team_size_limit, plural=plural
+                "팀장을 포함해 최대 {limit}명까지 가능합니다.".format(
+                    limit=team_size_limit
                 )
             )
         return render_template("teams/join_team.html", infos=infos, errors=errors)
@@ -180,7 +179,7 @@ def join():
 
             return redirect(url_for("challenges.listing"))
         else:
-            errors.append("팀 이름 또는 비밀번호를 다시 확인해주세요.")
+            errors.append("팀명 또는 비밀번호를 다시 확인해주세요.")
             return render_template("teams/join_team.html", infos=infos, errors=errors)
 
 
@@ -212,10 +211,9 @@ def new():
     if request.method == "GET":
         team_size_limit = get_config("team_size", default=0)
         if team_size_limit:
-            plural = "" if team_size_limit == 1 else "s"
             infos.append(
-                "Teams are limited to {limit} member{plural}".format(
-                    limit=team_size_limit, plural=plural
+                "팀장을 포함해 최대 {limit}명까지 가능합니다.".format(
+                    limit=team_size_limit
                 )
             )
         return render_template("teams/new_team.html", infos=infos, errors=errors)

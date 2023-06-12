@@ -694,7 +694,7 @@ class ChallengeAttempt(Resource):
                 "success": True,
                 "data": {
                     "status": "already_solved",
-                    "message": "You already solved this",
+                    "message": "해결한 문제입니다.",
                 },
             }
 
