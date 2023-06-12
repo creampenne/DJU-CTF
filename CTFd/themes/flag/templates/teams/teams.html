@@ -49,7 +49,6 @@
 						<td><b>팀</b></td>
 						<td><b>웹사이트</b></td>
 						<td class="d-none d-md-table-cell d-lg-table-cell"><b>학과</b></td>
-						<td class="d-none d-md-table-cell d-lg-table-cell"><b>국가</b></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -86,14 +85,6 @@
 								</span>
 								{% endif %}
 							{% endif %}
-						</td>
-						<td class="d-none d-md-table-cell d-lg-table-cell">
-							<span>
-								{% if team.country %}
-									<i class="flag-{{ team.country.lower() }}"></i>
-									{{ lookup_country_code(team.country) }}
-								{% endif %}
-							</span>
 						</td>
 					</tr>
 				{% endfor %}
